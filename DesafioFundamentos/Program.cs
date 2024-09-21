@@ -1,22 +1,38 @@
 ﻿using DesafioFundamentos.Models;
 
+static decimal LerValorDecimal(string mensagem)
+{
+    decimal valor = 0;
+    bool isDecimalValido = false;
+
+    while (!isDecimalValido)
+    {
+        Console.WriteLine(mensagem);
+        string input = Console.ReadLine();
+
+        if (decimal.TryParse(input, out valor))
+        {
+            isDecimalValido = true;
+        }
+        else
+        {
+            Console.WriteLine("Por favor, insira um valor decimal válido.");
+        }
+    }
+
+    return valor;
+}
+
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
-
-Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
-
-Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
+Console.WriteLine("Seja bem vindo ao sistema de estacionamento!");
+decimal precoInicial = LerValorDecimal("Digite o preço inicial:");
+decimal precoPorHora = LerValorDecimal("Agora digite o preço por hora:");
 
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
-Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
+Estacionamento es = new(precoInicial, precoPorHora);
 
-string opcao = string.Empty;
 bool exibirMenu = true;
 
 // Realiza o loop do menu
